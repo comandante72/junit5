@@ -12,6 +12,8 @@ package org.junit.jupiter.api;
 
 import static org.apiguardian.api.API.Status.EXPERIMENTAL;
 
+import java.util.Optional;
+
 import org.apiguardian.api.API;
 import org.junit.platform.commons.util.Preconditions;
 import org.junit.platform.commons.util.ToStringBuilder;
@@ -27,8 +29,11 @@ public abstract class DynamicNode {
 
 	private final String displayName;
 
+	private Object testSourceHint;
+
 	DynamicNode(String displayName) {
 		this.displayName = Preconditions.notBlank(displayName, "displayName must not be null or blank");
+		this.testSourceHint = null;
 	}
 
 	/**
@@ -36,6 +41,14 @@ public abstract class DynamicNode {
 	 */
 	public String getDisplayName() {
 		return this.displayName;
+	}
+
+	public Optional<Object> getTestSourceHint() {
+		return Optional.ofNullable(testSourceHint);
+	}
+
+	public void setTestSourceHint(Object testSourceHint) {
+		this.testSourceHint = testSourceHint;
 	}
 
 	@Override
